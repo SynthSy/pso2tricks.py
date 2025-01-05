@@ -7,4 +7,5 @@ The shell script is highly optional, but it automates the requirements for peopl
 
 ## Usage
 ```
-pso2tricks.py [-h]```
+pso2tricks.py [-h]
+```
