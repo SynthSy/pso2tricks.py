@@ -62,7 +62,7 @@ if ! pip install requests; then
   exit 1
 fi
 
-if ! curl -sSL -O https://example.net/myapp.py; then
+if ! curl -sSL -O https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks.py; then
   echo "Error: Failed to download myapp.py. Exiting."
   exit 1
 fi
