@@ -26,7 +26,7 @@ Searches for a `wine-lutris-GE-Proton*-x86_64.tar.xz` package in the same direct
 ### --tweaker [-up]
 Creates a folder called `pso2_files` in your home folder and downloads the "PSO2 Tweaker" into `~/pso2_files`. The `-up` flag will attempt to download a new copy of the Tweaker and delete your old one. (If you have a better solution, feel free to suggest it)
 
-## --patcher <ngs|both> <path>
+## --patcher <ngs|both> <path_to_pso2_bin>
 Downloads a pre-compiled version of [pso2-modpatcher](https://github.com/HybridEidolon/pso2-modpatcher) (used with permission) as well as the latest English patches.
 You can compile your own version using cargo-install.
 
