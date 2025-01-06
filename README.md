@@ -32,3 +32,5 @@ You can compile your own version using cargo-install.
 
 Example usage: ``python pso2tricks.py --patcher ngs ~/phantasystaronline2/pso2_bin``
 
+## Other notes
+I am exceptionally bad at error handling. Couldn't write a proper handler to save my life. Suggestions and changes are welcome!
