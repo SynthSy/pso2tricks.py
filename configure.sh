@@ -38,7 +38,7 @@ if command -v python &> /dev/null && python --version 2>&1 | grep -q "Python 2.7
 fi
 
 # Step 2: Download virtualenv.pyz using curl
-if ! curl -L -O https://bootstrap.pypa.io/virtualenv.pyz; then
+if ! mkdir pso2_files && cd pso2_files && curl -L -O https://bootstrap.pypa.io/virtualenv.pyz; then
   echo "Error: Failed to download virtualenv.pyz. Exiting."
   exit 1
 fi
