@@ -63,7 +63,7 @@ class PSO2TweakerPy:
 			print(f"Failed to download file: {e}")
 
 	def winegeBottles(self, installed): # detect bottles installation & extract wine-ge-proton
-		pattern = re.compile(r"^wine-lutris-GE-Proton\d{1,3}-\d{2}-x86_64\.tar\.xz$") # regex pattern for wine-lutrix-proton archive
+		pattern = re.compile(r"^wine-lutris-GE-Proton\d{1,9}-\d{1,30}-x86_64\.tar\.xz$") # regex pattern for wine-lutrix-proton archive
 		winefile = self.regexPath(self.tweaker_folder, pattern)
 
 		# check if folder exists
