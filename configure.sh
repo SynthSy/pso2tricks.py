@@ -20,6 +20,13 @@
 
 # pso2tricks.py is licensed under the WTFPL.
 
+# Directory configuration
+HOME_PATH="$1"
+if [ ! -z HOME_PATH ]; then
+  echo "Path was not specified, using defaults."
+  HOME_PATH="~/pso2_files"
+fi
+
 # Step 1: Check if the script has write permissions
 if [ ! -w . ]; then
   echo "Error: No write permissions in the current directory. Exiting."
@@ -38,19 +45,19 @@ if command -v python &> /dev/null && python --version 2>&1 | grep -q "Python 2.7
 fi
 
 # Step 2: Download virtualenv.pyz using curl
-if ! mkdir pso2_files && cd pso2_files && curl -L -O https://bootstrap.pypa.io/virtualenv.pyz; then
+if ! mkdir $HOME_PATH/pso2_files && cd $HOME_PATH/pso2_files && curl -L -O https://bootstrap.pypa.io/virtualenv.pyz; then
   echo "Error: Failed to download virtualenv.pyz. Exiting."
   exit 1
 fi
 
 # Step 3: Create a virtual environment using the downloaded virtualenv.pyz
-if ! python3 virtualenv.pyz myenv; then
+if ! python3 $HOME_PATH/virtualenv.pyz myenv; then
   echo "Error: Failed to create the virtual environment. Exiting."
   exit 1
 fi
 
 # Step 4: Activate the virtual environment
-source myenv/bin/activate
+source $HOME_PATH/myenv/bin/activate
 if [ $? -ne 0 ]; then
   echo "Error: Failed to activate the virtual environment. Exiting."
   exit 1
@@ -62,8 +69,8 @@ if ! pip install requests; then
   exit 1
 fi
 
-if ! curl -sSL -O https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks.py; then
-  echo "Error: Failed to download myapp.py. Exiting."
+if ! curl -sSL -O $HOME_PATH/pso2tricks.py https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks.py; then
+  echo "Error: Failed to download pso2tricks.py. Exiting."
   exit 1
 fi
 
