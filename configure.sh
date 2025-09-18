@@ -24,7 +24,7 @@
 HOME_PATH="$1"
 if [ ! -z HOME_PATH ]; then
   echo "Path was not specified, using defaults."
-  HOME_PATH="~/pso2_files"
+  HOME_PATH="$HOME"
 fi
 
 # Step 1: Check if the script has write permissions
