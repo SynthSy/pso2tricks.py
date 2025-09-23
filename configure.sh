@@ -51,7 +51,7 @@ if ! mkdir -P $HOME_PATH/pso2_files && cd $HOME_PATH/pso2_files && curl -L -O ht
 fi
 
 # Step 3: Create a virtual environment using the downloaded virtualenv.pyz
-if ! python3 $HOME_PATH/virtualenv.pyz myenv; then
+if ! cd $HOME_PATH/pso2_files && python3 virtualenv.pyz myenv; then
   echo "Error: Failed to create the virtual environment. Exiting."
   exit 1
 fi
