@@ -29,7 +29,6 @@ class PSO2TweakerPy:
 		self.tweaker_folder = f'{Path.home()}/pso2_files' # sets the tweaker folder
 
 	def _configArgs(self): # define commands
-		self.parser.add_argument("-w", "--wine", action="store_true", help="Install GloriousEggroll's wine-ge-proton.")
 		self.parser.add_argument("-t", "--tweaker", action="store_true", help="Downloads the PSO2 Tweaker.")
 		self.parser.add_argument("-up", action='store_true', dest="update", help="Updates the PSO2 Tweaker if previously downloaded.")	
 		self.parser.add_argument("-p","--patcher", nargs=2, metavar=("patch", "path"), help="Downloads & applies the English fan patches. ")
@@ -37,7 +36,7 @@ class PSO2TweakerPy:
 
 	def _version(self, info):
 		if info is True:
-			version = '1.3'
+			version = '1.4'
 			print('pso2tricks.py v' + version)
 
 	def regexPath(self, directory, pattern): # check if file exists by matching regex
@@ -62,32 +61,9 @@ class PSO2TweakerPy:
 		except requests.exceptions.RequestException as e:
 			print(f"Failed to download file: {e}")
 
-	def winegeBottles(self, installed): # detect bottles installation & extract wine-ge-proton
-		pattern = re.compile(r"^wine-lutris-GE-Proton\d{1,9}-\d{1,30}-x86_64\.tar\.xz$") # regex pattern for wine-lutrix-proton archive
-		winefile = self.regexPath(self.tweaker_folder, pattern)
-
-		# check if folder exists
-		if os.path.exists(f'{self.tweaker_folder}') or os.getcwd() == self.tweaker_folder: 
-			pass
-		elif os.getcwd() == self.homeDir:
-			os.system(f'mkdir {self.tweaker_folder}')
-		else:
-			pass
-		
-		if installed:
-			if os.path.exists(f'{self.homeDir}/.var/app/com.usebottles.bottles'): # a (flawed) check to see if bottles is installed
-				bottles_dir = f'{self.homeDir}/.var/app/com.usebottles.bottles'
-				if os.path.exists(f'{self.tweaker_folder}/{winefile}'):
-					print('Extracting into the Bottles folder.')
-					os.system(f'tar -xvf {winefile} -C {bottles_dir}/data/bottles/runners')
-				else:
-					print('Error: missing wine-lutris-GE-Proton*-x86_64.tar.xz file!')
-			else:
-				print('Error: You do not have Bottles installed!')
-
 	def getTweaker(self, tweaker, update): # download the tweaker, will also set flatpak override if allowed
 		# tweaker exe origin
-		tweakerUrl = 'https://github.com/Aida-Enna/PSO2TweakerReleases/blob/master/6.2.1.5/PSO2%20Tweaker.exe?raw=true'
+		tweakerUrl = 'https://github.com/Aida-Enna/PSO2TweakerReleases/blob/master/6.2.1.9/PSO2%20Tweaker.exe?raw=true'
 		pattern = re.compile(r"PSO2 Tweaker\.exe") # simple "PSO2 Tweaker.exe" regex
 		tweakerExe = self.regexPath(self.tweaker_folder, pattern)
 		if tweaker is True:

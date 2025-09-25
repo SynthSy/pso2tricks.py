@@ -2,17 +2,17 @@
 # shellcheck disable=SC1090
 
 # Auto installer for the lazy
-# Setup the required user dependencies to 
+# Setup the required user dependencies to
 # execute pso2tricks.py
 
 # Downloads the following:
-# - virtualenv.pyz python3 web script 
+# - virtualenv.pyz python3 web script
 # from https://bootstrap.pypa.io/virtualenv.pyz
-# - - Allows the creation of a python virtual environment 
+# - - Allows the creation of a python virtual environment
 # so we can install the python library requests
- 
-# This script will automatically create a virutal 
-# environment named "myenv" which will be activated 
+
+# This script will automatically create a virutal
+# environment named "myenv" which will be activated
 # afterwards, allowing execution of our custom python
 # script "pso2tricks.py".
 
@@ -20,18 +20,18 @@
 
 # pso2tricks.py is licensed under the WTFPL.
 
-# Directory configuration
-HOME_PATH="$1"
-if [ ! -z HOME_PATH ]; then
-  echo "Path was not specified, using defaults."
-  HOME_PATH="$HOME"
-fi
-
 # Step 1: Check if the script has write permissions
 if [ ! -w . ]; then
   echo "Error: No write permissions in the current directory. Exiting."
   exit 1
 fi
+
+# Step-bro 0: check if flatpak is installed on the system
+if ! command -v flatpak >/dev/null 2>&1; then
+    echo "flatpak could not be found, visit https://flatpak.org/setup/ and install it for your distro of choice."
+    exit 1
+fi
+
 
 # Step 1a: Check if python is present, exit if older version or not available
 if ! command -v python3 &> /dev/null; then
@@ -45,23 +45,19 @@ if command -v python &> /dev/null && python --version 2>&1 | grep -q "Python 2.7
 fi
 
 # Step 2: Download virtualenv.pyz using curl
-if ! mkdir -P $HOME_PATH/pso2_files && cd $HOME_PATH/pso2_files && curl -L -O https://bootstrap.pypa.io/virtualenv.pyz; then
+if ! mkdir "$HOME/pso2_files" && curl -L -O --output-dir "$HOME/pso2_files" https://bootstrap.pypa.io/virtualenv.pyz; then
   echo "Error: Failed to download virtualenv.pyz. Exiting."
   exit 1
 fi
 
 # Step 3: Create a virtual environment using the downloaded virtualenv.pyz
-if ! cd $HOME_PATH/pso2_files && python3 virtualenv.pyz myenv; then
+if ! cd "$HOME/pso2_files" && python virtualenv.pyz myenv; then
   echo "Error: Failed to create the virtual environment. Exiting."
   exit 1
 fi
 
 # Step 4: Activate the virtual environment
-source $HOME_PATH/myenv/bin/activate
-if [ $? -ne 0 ]; then
-  echo "Error: Failed to activate the virtual environment. Exiting."
-  exit 1
-fi
+cd "$HOME/pso2_files" && source ~/pso2_files/myenv/bin/activate
 
 # Step 5: Install the requests library using pip
 if ! pip install requests; then
@@ -69,7 +65,7 @@ if ! pip install requests; then
   exit 1
 fi
 
-if ! curl -sSL -O $HOME_PATH/pso2tricks.py https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks.py; then
+if ! curl -sSL -O ~/pso2_files/pso2tricks.py https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks.py; then
   echo "Error: Failed to download pso2tricks.py. Exiting."
   exit 1
 fi
