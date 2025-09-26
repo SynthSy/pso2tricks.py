@@ -21,7 +21,7 @@ class PSO2TweakerPy:
 			description="Helps GNU/Linux users install the PSO2 Tweaker to play the Japanese version.",
 			epilog="Created by SynthSy. Licensed under the WTFPL.",
 			formatter_class=lambda prog: prettyHelp(prog, width=100),
-			usage='%(prog)s [-h] [-v] [-w] [--tweaker [-up]] [--patcher <ngs|both> <path to pso2_bin>]'
+			usage='%(prog)s [-h] [-v] [--tweaker [-up]] [--patcher <ngs|both> <path to pso2_bin>]'
 		)
 		self._configArgs()
 		self.homeDir = Path.home() # get current user's home folder
@@ -130,9 +130,6 @@ class PSO2TweakerPy:
 
 	def parseArgs(self): # parse commands
 		args = self.parser.parse_args()
-
-		if args.wine:
-			self.winegeBottles(args.wine)
 
 		if args.tweaker:
 			self.getTweaker(args.tweaker, args.update)
