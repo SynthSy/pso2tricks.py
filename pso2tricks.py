@@ -108,8 +108,8 @@ class PSO2TweakerPy:
 			reboot_zip = f'{self.tweaker_folder}/Latest_Patch_EN_Reboot.zip'
 			self.downloadFile(ngs_en_patch, reboot_zip)
 			os.system(f'cd {self.tweaker_folder} && unzip Latest_Patch_EN_Reboot.zip -d "{self.tweaker_folder}/ELS"')
-			os.system(f'cd {self.tweaker_folder} && ./els_linux --no-backup "{self.tweaker_folder}/ELS/win32" "{pso2_bin}/data/win32"')
-			os.system(f'cd {self.tweaker_folder} && ./els_linux --no-backup "{self.tweaker_folder}/ELS/win32reboot" "{pso2_bin}/data/win32reboot"')
+			os.system(f'cd {self.tweaker_folder} && ./els_linux --no-backup -v "{self.tweaker_folder}/ELS/win32" "{pso2_bin}/data/win32"')
+			os.system(f'cd {self.tweaker_folder} && ./els_linux --no-backup -v "{self.tweaker_folder}/ELS/win32reboot" "{pso2_bin}/data/win32reboot"')
 			print('Cleaning up...')
 			os.remove(reboot_zip)
 			print('done')
