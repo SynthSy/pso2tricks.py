@@ -7,11 +7,10 @@ The shell script is highly optional, but it automates the requirements for peopl
 
 ## Usage
 ```
-pso2tricks.py [-h] [-v] [-w] [--tweaker [-up]] [--patcher <ngs|both> <path to pso2_bin>]
+pso2tricks [-h] [-v] [--tweaker [-up]] [--patcher <ngs|both> <path to pso2_bin>]
 
 options:
   -h, --help     show this help message and exit
-  -w, --wine     Install GloriousEggroll's wine-ge-proton. (default: False)
   -t, --tweaker  Downloads the PSO2 Tweaker. (default: False)
   -up            Updates the PSO2 Tweaker if previously downloaded. (default: False)
   -p, --patcher  Downloads & applies the English fan patches. (default: None)
@@ -20,9 +19,6 @@ options:
 ```
 
 ## Options
-### --wine
-Searches for a `wine-lutris-GE-Proton*-x86_64.tar.xz` package in the same directory as pso2tricks.py and automatically extracts it into Bottles.
-
 ### --tweaker [-up]
 Creates a folder called `pso2_files` in your home folder and downloads the "PSO2 Tweaker" into `~/pso2_files`. The `-up` flag will attempt to download a new copy of the Tweaker and delete your old one. (If you have a better solution, feel free to suggest it)
 
