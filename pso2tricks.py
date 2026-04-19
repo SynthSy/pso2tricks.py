@@ -23,7 +23,7 @@ class prettyHelp(argparse.ArgumentDefaultsHelpFormatter):
 class PSO2TweakerPy:
 	def __init__(self):
 		self.parser = argparse.ArgumentParser(
-			prog="pso2tricks",
+			prog="pso2tricks.py",
 			description="Helps GNU/Linux users install the PSO2 Tweaker to play the Japanese version.",
 			epilog="Created by SynthSy. Licensed under the WTFPL.",
 			formatter_class=lambda prog: prettyHelp(prog, width=100),
