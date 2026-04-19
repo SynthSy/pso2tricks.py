@@ -24,7 +24,7 @@ class prettyHelp(argparse.ArgumentDefaultsHelpFormatter):
 class PSO2TweakerPy:
 	def __init__(self):
 		self.parser = argparse.ArgumentParser(
-			prog="pso2tricks.py",
+			prog="pso2tricks",
 			description="Helps GNU/Linux users install the PSO2 Tweaker to play the Japanese version.",
 			epilog="Created by SynthSy. Licensed under the WTFPL.",
 			formatter_class=lambda prog: prettyHelp(prog, width=100),
@@ -44,7 +44,7 @@ class PSO2TweakerPy:
 	def _version(self, info):
 		if info is True:
 			version = '1.5'
-			print('pso2tricks.py v' + version)
+			print('pso2tricks v' + version)
 
 	def regexPath(self, directory, pattern): # check if file exists by matching regex
 		try:
