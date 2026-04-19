@@ -41,7 +41,7 @@ set -e
 ###############################################################################
 
 # SYSTEM REQUIREMENTS
-readonly PSO2TRICKS_DEPENDS=('wget' 'curl' 'python3', 'flatpak')
+readonly PSO2TRICKS_DEPENDS=('curl', 'python3', 'flatpak')
 
 UNAME_M="$(uname -m)"
 readonly UNAME_M
@@ -49,7 +49,7 @@ readonly UNAME_M
 UNAME_U="$(uname -s)"
 readonly UNAME_U
 
-VIRTENV=https://bootstrap.pypa.io/virtualenv.pyz
+UV_INSTALLER=https://astral.sh/uv/install.sh
 PSO2TRICKS_URL=https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks.py
 
 # COLORS
@@ -152,31 +152,39 @@ Write_Check() {
     fi
 }
 
-Download_Virtual_Env() {
-    if [[ -d "$HOME/pso2_files" ]]; then
-      cd "$HOME/pso2_files" && curl -fsSOL --output-dir "$HOME/pso2_files" $VIRTENV
+Download_uv() {
+    PSO2_FILES="${PSO2_FILES_LOCATION:-}"
+    if [[ -n "${PSO2_FILES}" ]]; then
+      cd $PSO2_FILES && curl -LsSf $UV_INSTALLER | env UV_UNMANAGED_INSTALL="$PSO2_FILES" sh
+    elif [[ -d "$HOME/pso2_files" ]]; then
+      cd "$HOME/pso2_files" && curl -LsSf $UV_INSTALLER | env UV_UNMANAGED_INSTALL="$HOME/pso2_files" sh
       Show 2 "Downloaded to existing directory"
     else
       Show 3 "Could not find existing pso2_files directory, making one now..."
       mkdir "$HOME/pso2_files" && \
       Show 3 "Directory created in $HOME/pso2_files, continuing..." && \
-      curl -fsSOL --output-dir "$HOME/pso2_files" $VIRTENV
-      Show 0 "Downloaded virtualenv.pyz"
+      curl -LsSf $UV_INSTALLER | env UV_UNMANAGED_INSTALL="$HOME/pso2_files" sh
+      Show 0 "Downloaded uv"
     fi
 }
 
 En_Finale() {
     echo -e "${GREEN_LINE}${aCOLOUR[1]}"
     echo -e " Prerequisites have been downloaded & installed"
-    echo -e " You may use pso2tricks.py to download &"
+    echo -e " You may use pso2tricks to download &"
     echo -e " install the english patch.${COLOUR_RESET}"
     echo -e "${GREEN_LINE}"
     echo -e "${COLOUR_RESET}"
 }
 
 Download_pso2tricks() {
-    cd "$HOME/pso2_files" && \
-    curl -O -J -s -S -L $PSO2TRICKS_URL
+    if [[ -n "${PSO2_FILES}" ]]; then
+      cd "$PSO2_FILES" && \
+      curl -O -J -s -S -L $PSO2TRICKS_URL
+    else
+      cd "$HOME/pso2_files" && \
+      curl -O -J -s -S -L $PSO2TRICKS_URL
+    fi
 }
 
 ###############################################################################
@@ -190,24 +198,20 @@ Check_OS
 Write_Check
 
 # Step 2: Download virtualenv.pyz using curl
-Download_Virtual_Env
+Download_uv
 
-# Step 3: Create a virtual environment using the downloaded 
-# virtualenv.pyz, then activate the virtual environment
-(
-    cd "$HOME/pso2_files" && \
-    python virtualenv.pyz myenv > /dev/null 2>&1 && \
-
-# Step 4: Install the requests library using pip
-    "$HOME/pso2_files/myenv/bin/python3" "$HOME/pso2_files/myenv/bin/pip" install --quiet requests
-)
 Show 0 "Dependencies downloaded & configured"
 
-# Step 5: Download pso2tricks
+# Step 3: Download pso2tricks
 Download_pso2tricks
 
-# Step 6: Done
+# Step 4: Done
 En_Finale
 
-cd "$HOME/pso2_files"
+if [[ -n "${PSO2_FILES}" ]]; then
+  cd $PSO2_FILES
+else
+  cd "$HOME/pso2_files"
+fi
+
 exit 0

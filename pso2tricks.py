@@ -1,3 +1,10 @@
+#!/usr/bin/env -S ./uv run --script
+# /// script
+# dependencies = [
+#   "requests"
+# ]
+# ///
+
 import os
 import sys
 import argparse
@@ -36,7 +43,7 @@ class PSO2TweakerPy:
 
 	def _version(self, info):
 		if info is True:
-			version = '1.4'
+			version = '1.5'
 			print('pso2tricks.py v' + version)
 
 	def regexPath(self, directory, pattern): # check if file exists by matching regex
