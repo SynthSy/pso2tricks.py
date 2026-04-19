@@ -7,7 +7,7 @@ The shell script is highly optional, but it automates the requirements for peopl
 
 ## Usage
 ```
-pso2tricks [-h] [-v] [--tweaker [-up]] [--patcher <ngs|both> <path to pso2_bin>]
+pso2tricks.py [-h] [-v] [--tweaker [-up]] [--patcher <ngs|both> <path to pso2_bin>]
 
 options:
   -h, --help     show this help message and exit
