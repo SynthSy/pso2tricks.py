@@ -50,7 +50,7 @@ UNAME_U="$(uname -s)"
 readonly UNAME_U
 
 UV_INSTALLER=https://astral.sh/uv/install.sh
-PSO2TRICKS_URL=https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks.py
+PSO2TRICKS_URL=https://raw.githubusercontent.com/SynthSy/pso2tricks.py/refs/heads/main/pso2tricks_selfcontained
 
 # COLORS
 readonly COLOUR_RESET='\e[0m'
@@ -180,10 +180,12 @@ En_Finale() {
 Download_pso2tricks() {
     if [[ -n "${PSO2_FILES}" ]]; then
       cd "$PSO2_FILES" && \
-      curl -O -J -s -S -L $PSO2TRICKS_URL
+      curl -O -J -s -S -L -o "pso2tricks" $PSO2TRICKS_URL && \
+      chmod +x ./pso2tricks
     else
       cd "$HOME/pso2_files" && \
-      curl -O -J -s -S -L $PSO2TRICKS_URL
+      curl -O -J -s -S -L -o "pso2tricks" $PSO2TRICKS_URL && \
+      chmod +x ./pso2tricks
     fi
 }
 
