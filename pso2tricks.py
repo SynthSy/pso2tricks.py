@@ -149,4 +149,3 @@ class PSO2TweakerPy:
 if __name__ == "__main__":
 	app = PSO2TweakerPy()
 	app.parseArgs()
-main
