@@ -139,12 +139,18 @@ class PSO2TweakerPy:
 		if str(patch) == 'both':
 			reboot_zip = f'{self.tweaker_folder}/Latest_Patch_EN_Reboot.zip'
 			win32_zip = f'{self.tweaker_folder}/Latest_Patch_EN_win32.zip'
+
+			win32_dir = f'{self.tweaker_folder}/ELS/win32'
+			win32reboot_dir = f'{self.tweaker_folder}/ELS/win32reboot'
+
 			self.downloadFile(classic_en_patch, win32_zip)
 			self.downloadFile(ngs_en_patch, reboot_zip)
+			
 			with zipfile.ZipFile(win32_zip, "r") as win32:
 				win32.extractall(f'{self.tweaker_folder}/ELS')
 			with zipfile.ZipFile(reboot_zip, "r") as reboot:
 				reboot.extractall(f'{self.tweaker_folder}/ELS')
+
 			result = subprocess.run(['./els_linux', '--no-backup', '-v', win32_dir, f'{pso2_bin}/data/win32'],
 				cwd=self.tweaker_folder,
 				check=True
