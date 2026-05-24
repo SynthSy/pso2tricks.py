@@ -94,7 +94,7 @@ class PSO2TweakerPy:
 			self.downloadFile(tweakerUrl, filepath)
 
 	def patchDownload(self, patch, pso2_bin): # download patches if the tweaker did not
-		patcher = 'https://synthsy.space/els_linux' # https://github.com/HybridEidolon/pso2-modpatcher || I compiled a binary using ubuntu 20.04 then uploaded it.
+		patcher = 'https://synthsy.space/json/els_linux' # https://github.com/HybridEidolon/pso2-modpatcher || I compiled a binary using ubuntu 20.04 then uploaded it.
 		ngs_en_patch = 'https://cdn.arks-layer.com/TweakerTemp/Latest_Patch_EN_Reboot.zip'
 		classic_en_patch = 'https://cdn.arks-layer.com/TweakerTemp/Latest_Patch_EN_win32.zip'
 
