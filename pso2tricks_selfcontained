@@ -70,7 +70,7 @@ class PSO2TweakerPy:
 
 	def getTweaker(self, tweaker, update): # download the tweaker, will also set flatpak override if allowed
 		# tweaker exe origin
-		tweakerUrl = 'https://github.com/Aida-Enna/PSO2TweakerReleases/blob/master/6.2.1.9/PSO2%20Tweaker.exe?raw=true'
+		tweakerUrl = 'https://github.com/Aida-Enna/PSO2TweakerReleases/releases/latest/download/PSO2.Tweaker.exe'
 		pattern = re.compile(r"PSO2 Tweaker\.exe") # simple "PSO2 Tweaker.exe" regex
 		tweakerExe = self.regexPath(self.tweaker_folder, pattern)
 		if tweaker is True:
