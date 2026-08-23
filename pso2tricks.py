@@ -72,7 +72,7 @@ class PSO2TweakerPy:
 
 	def getTweaker(self, tweaker, update): # download the tweaker, will also set flatpak override if allowed
 		# tweaker exe origin
-		tweakerUrl = 'https://github.com/Aida-Enna/PSO2TweakerReleases/blob/master/6.2.1.9/PSO2%20Tweaker.exe?raw=true'
+		tweakerUrl = 'https://github.com/Aida-Enna/PSO2TweakerReleases/releases/latest/download/PSO2.Tweaker.exe'
 		pattern = re.compile(r"PSO2 Tweaker\.exe") # simple "PSO2 Tweaker.exe" regex
 		tweakerExe = self.regexPath(self.tweaker_folder, pattern)
 		if tweaker is True:
@@ -120,15 +120,22 @@ class PSO2TweakerPy:
 			
 			with zipfile.ZipFile(reboot_zip, "r") as zip_ref:
 				zip_ref.extractall(f'{self.tweaker_folder}/ELS')
+				
 			win32_dir = f'{self.tweaker_folder}/ELS/win32'
 			win32reboot_dir = f'{self.tweaker_folder}/ELS/win32reboot'
 			
 			result = subprocess.run(['./els_linux', '--no-backup', '-v', win32_dir, f'{pso2_bin}/data/win32'],
+				text=True,
 				cwd=self.tweaker_folder,
+				stdout=sys.stdout,
+    			stderr=sys.stderr,
 				check=True
 			)
 			reboot = subprocess.run(['./els_linux', '--no-backup', '-v', win32reboot_dir, f'{pso2_bin}/data/win32reboot'],
+				text=True,
 				cwd=self.tweaker_folder,
+				stdout=sys.stdout,
+    			stderr=sys.stderr,
 				check=True
 			)
 			
@@ -145,17 +152,23 @@ class PSO2TweakerPy:
 
 			self.downloadFile(classic_en_patch, win32_zip)
 			self.downloadFile(ngs_en_patch, reboot_zip)
-			
+
+			print('Extracting files...')
 			with zipfile.ZipFile(win32_zip, "r") as win32:
 				win32.extractall(f'{self.tweaker_folder}/ELS')
 			with zipfile.ZipFile(reboot_zip, "r") as reboot:
 				reboot.extractall(f'{self.tweaker_folder}/ELS')
+			print('Done.')
 
-			result = subprocess.run(['./els_linux', '--no-backup', '-v', win32_dir, f'{pso2_bin}/data/win32'],
+			print('Beginning patch process, please wait...')
+			subprocess.run(['./els_linux', '--no-backup', '-v', win32_dir, f'{pso2_bin}/data/win32'],
 				cwd=self.tweaker_folder,
+				text=True,
 				check=True
 			)
-			reboot = subprocess.run(['./els_linux', '--no-backup', '-v', win32reboot_dir, f'{pso2_bin}/data/win32reboot'],
+
+			subprocess.run(['./els_linux', '--no-backup', '-v', win32reboot_dir, f'{pso2_bin}/data/win32reboot'],
+				text=True,
 				cwd=self.tweaker_folder,
 				check=True
 			)
