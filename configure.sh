@@ -207,6 +207,15 @@ En_Finale() {
     echo -e "${GREEN_LINE}${COLOUR_RESET}"
 }
 
+Enter_Folder() {
+    cd "$PSO2_FILES" || Show 1 "Could not change into $PSO2_FILES."
+    if { true </dev/tty; } 2>/dev/null; then
+        Show 2 "You are now in $PSO2_FILES (type 'exit' to go back)."
+        exec "${SHELL:-bash}" </dev/tty
+    fi
+    Show 3 "Run this to go to the pso2tricks folder: cd $PSO2_FILES"
+}
+
 ###############################################################################
 # Setup                                                                       #
 ###############################################################################
@@ -229,5 +238,6 @@ Warm_Cache
 
 # Step 4: Done
 En_Finale
+Enter_Folder
 
 exit 0
