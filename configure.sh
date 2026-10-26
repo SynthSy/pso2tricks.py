@@ -211,7 +211,9 @@ Enter_Folder() {
     cd "$PSO2_FILES" || Show 1 "Could not change into $PSO2_FILES."
     if { true </dev/tty; } 2>/dev/null; then
         Show 2 "You are now in $PSO2_FILES (type 'exit' to go back)."
-        exec "${SHELL:-bash}" </dev/tty
+        local shell_bin=/bin/bash
+        [[ -x $shell_bin ]] || shell_bin="$BASH"
+        exec "$shell_bin" </dev/tty
     fi
     Show 3 "Run this to go to the pso2tricks folder: cd $PSO2_FILES"
 }
